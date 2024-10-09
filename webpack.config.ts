@@ -4,7 +4,9 @@ import webpack from "webpack";
 
 const config: webpack.Configuration = {
     mode: "development",
-    entry: path.resolve(__dirname, "src", "index.ts"),
+    entry: {
+        script: path.resolve(__dirname, "src", "index.ts"),
+    },
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[contenthash:8].js",
