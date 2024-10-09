@@ -9,7 +9,7 @@ import webpack from "webpack";
 
 
 export const buildWebpackConfig = (options: BuildOptions): webpack.Configuration => {
-    const { mode, paths } = options
+    const { mode, paths, isDev } = options
     return {
         mode,
         entry: {
@@ -25,7 +25,7 @@ export const buildWebpackConfig = (options: BuildOptions): webpack.Configuration
             filename: "[name].[contenthash:8].js",
             clean: true,
         },
-        devtool: 'inline-source-map',
-        devServer: buildDevServer(options),
+        devtool: isDev ? 'inline-source-map' : undefined,
+        devServer: isDev ? buildDevServer(options) : undefined,
     }
 }
