@@ -4,11 +4,11 @@ import { buildResolvers } from "./buildResolvers";
 import { buildLoaders } from "./buildLoaders";
 import { BuildOptions } from "./types/config";
 
-import webpack from "webpack";
+import { Configuration } from "webpack";
 
 
 
-export const buildWebpackConfig = (options: BuildOptions): webpack.Configuration => {
+export const buildWebpackConfig = (options: BuildOptions): Configuration => {
     const { mode, paths, isDev } = options
     return {
         mode,
@@ -21,7 +21,7 @@ export const buildWebpackConfig = (options: BuildOptions): webpack.Configuration
         plugins: buildPlugins(options),
         resolve: buildResolvers(),
         output: {
-            path: paths.output,
+            path: paths.dist,
             filename: "[name].[contenthash:8].js",
             clean: true,
         },
