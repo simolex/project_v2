@@ -1,3 +1,4 @@
+import { buildDevServer } from "./buildDevServer";
 import { buildPlugins } from "./buildPlugins";
 import { buildResolvers } from "./buildResolvers";
 import { buildLoaders } from "./buildLoaders";
@@ -14,15 +15,17 @@ export const buildWebpackConfig = (options: BuildOptions): webpack.Configuration
         entry: {
             script: paths.entry,
         },
-        output: {
-            path: paths.output,
-            filename: "[name].[contenthash:8].js",
-            clean: true,
-        },
         module: {
             rules: buildLoaders(),
         },
         plugins: buildPlugins(options),
         resolve: buildResolvers(),
+        output: {
+            path: paths.output,
+            filename: "[name].[contenthash:8].js",
+            clean: true,
+        },
+        devtool: 'inline-source-map',
+        devServer: buildDevServer(options),
     }
 }
