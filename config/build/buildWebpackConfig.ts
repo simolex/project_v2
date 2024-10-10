@@ -16,7 +16,7 @@ export const buildWebpackConfig = (options: BuildOptions): Configuration => {
             script: paths.entry,
         },
         module: {
-            rules: buildLoaders(),
+            rules: buildLoaders(options),
         },
         plugins: buildPlugins(options),
         resolve: buildResolvers(),

@@ -1,6 +1,11 @@
-h1 {
-    color: magenta;
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
-button {
-    color: lime;
+
+#root {
+    font-size: 26px;
 }
