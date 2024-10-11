@@ -2,7 +2,11 @@ import Counter from "./components/Counter";
 import "./style.scss";
 
 const App = () => {
-    return <Counter></Counter>;
+    return (
+        <div className='app'>
+            <Counter />
+        </div>
+    );
 };
 
 export default App;
