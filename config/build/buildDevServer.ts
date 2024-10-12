@@ -8,5 +8,6 @@ export const buildDevServer = (options: BuildOptions): DevServerConfiguration =>
         static: paths.dist,
         port: options.port,
         open: true,
+        historyApiFallback: true
     }
 }
