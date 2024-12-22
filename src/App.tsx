@@ -1,25 +1,43 @@
-import { Suspense, useState } from "react";
+import { Suspense, useCallback, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
-import { AboutPageAsync } from "./pages/AboutPage/AboutPage.async";
+import { OrderPageAsync } from "./pages/OrderPage/OrderPage.async";
 import { MainPageAsync } from "./pages/MainPage/MainPage.async";
+import { OrderPageDetailsAsync } from "./pages/OrderPageDetails/OrderPageDetails.async";
 import "./styles/index.scss";
+import { AppContext, Theme } from "./theme/ThemeContext";
+import { CarModal } from "./shared/ui/CarModal/CarModal";
 
 const App = () => {
     const [theme, setTheme] = useState<Theme>("light");
+    const { isCarModal, setIsCarModal } = useContext(AppContext);
 
     const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+    // const toggleModal = () => setIsCarModal(true);
+    console.log(isCarModal);
+
+    const onCloseModal = useCallback(() => {
+        setIsCarModal(false);
+    }, []);
+
+    const onShowModal = useCallback(() => {
+        setIsCarModal(true);
+    }, []);
+
     return (
         <div className={`app ${theme}`}>
-            <button onClick={toggleTheme}>toggle</button>
-            <Link to="/">Main</Link>
-            <Link to="/about">About</Link>
+            <button onClick={toggleTheme}>Тема</button>
+            <button onClick={onShowModal}>Окно</button>
+            {/* <Link to="/">Main</Link> */}
+            {/* <Link to="/order">order</Link> */}
             <Suspense fallback={<div>Загрузка...</div>}>
                 <Routes>
-                    <Route path={"/about"} element={<AboutPageAsync />} />
+                    <Route path={"/order"} element={<OrderPageAsync />} />
+                    <Route path={"/order/:id"} element={<OrderPageDetailsAsync />} />
                     <Route path={"/"} element={<MainPageAsync />} />
                 </Routes>
             </Suspense>
+            {isCarModal && <CarModal isOpen={isCarModal} onClose={onCloseModal} />}
         </div>
     );
 };

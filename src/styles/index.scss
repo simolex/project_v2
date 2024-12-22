@@ -3,9 +3,16 @@
 @import "./themes/light";
 @import "./themes/dark";
 
-.app {
+html,
+body,
+#root {
     font: var(--font-m);
+    font-family: var(--font-family-main);
+    color: var(--primary-color);
+    height: 100%;
+}
 
+.app {
     background-color: var(--bg-color);
     color: var(--primary-color);
     min-height: 100vh;

@@ -6,7 +6,8 @@
     "scripts": {
         "start": "npx webpack serve --env port=3001",
         "build:prod": "npx webpack --env mode=production",
-        "build:dev": "npx webpack --env mode=development"
+        "build:dev": "npx webpack --env mode=development",
+        "json:server": "node ./json-server/index.js"
     },
     "keywords": [],
     "author": "",
@@ -32,6 +33,8 @@
         "webpack-dev-server": "^5.1.0"
     },
     "dependencies": {
+        "json-server": "^0.17.2",
+        "node-telegram-bot-api": "^0.66.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-router-dom": "^6.26.2"

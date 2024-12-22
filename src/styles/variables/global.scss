@@ -6,4 +6,9 @@
     --font-size-l: 24px;
     --font-line-l: 32px;
     --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+    // Modal
+    --popup-z-index: 150;
+    --modal-z-index: 130;
+    --overlay-z-index: 110;
+    --overlay-color: rgba(0 0 0 / 60%);
 }
