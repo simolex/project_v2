@@ -26,7 +26,7 @@ const App = () => {
         <div className={`app ${theme}`}>
             <button onClick={toggleTheme}>Тема</button>
             {/* <button onClick={onShowModal}>Окно</button> */}
-
+            <Link to='/order'>Перейти на страницу Заказов</Link>
             <Suspense fallback={<div>Загрузка...</div>}>
                 <Routes>
                     <Route path={"/order"} element={<OrderPageAsync />} />
