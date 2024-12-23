@@ -13,8 +13,6 @@ const App = () => {
     const { isCarModal, setIsCarModal } = useContext(AppContext);
 
     const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
-    // const toggleModal = () => setIsCarModal(true);
-    console.log(isCarModal);
 
     const onCloseModal = useCallback(() => {
         setIsCarModal(false);
@@ -27,9 +25,8 @@ const App = () => {
     return (
         <div className={`app ${theme}`}>
             <button onClick={toggleTheme}>Тема</button>
-            <button onClick={onShowModal}>Окно</button>
-            {/* <Link to="/">Main</Link> */}
-            {/* <Link to="/order">order</Link> */}
+            {/* <button onClick={onShowModal}>Окно</button> */}
+
             <Suspense fallback={<div>Загрузка...</div>}>
                 <Routes>
                     <Route path={"/order"} element={<OrderPageAsync />} />

@@ -1,5 +1,6 @@
 {
     "name": "ulbi-v2",
+    "proxy":"http://localhost",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",

@@ -2,14 +2,16 @@ import { createContext } from "react";
 
 export type Theme = "light" | "dark";
 
-export type OrderKey = string | null
+export type OrderKey = string | null;
 
 export interface AppContentPros {
     isCarModal?: boolean;
     setIsCarModal?: (isCar: boolean) => void;
-    waitJoin?: (offset: number) => void;
+    orderKey?: string;
+    setOrderKey?: (key: string) => void;
+    waitJoin?: (offset: number, key: string) => void;
 }
 
 export const AppContext = createContext<AppContentPros>({});
 
-export const LOCAL_STORAGE_THEME_KEY = 'theme';
+export const LOCAL_STORAGE_THEME_KEY = "theme";

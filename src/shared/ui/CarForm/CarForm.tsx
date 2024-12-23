@@ -24,7 +24,6 @@ const CarForm = memo((props: CarFormProps) => {
         },
         [car]
     );
-
     const onSendClick = useCallback(async () => {
         setDisabled(true);
         try {
@@ -33,17 +32,16 @@ const CarForm = memo((props: CarFormProps) => {
                 {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                         chat_id: 235593505,
-                        text: `Хочу: ${car}`
-                    })
+                        text: `Need Car: ${car}`,
+                    }),
                 }
             );
             const res_tg = await tg.json();
             onSuccess();
-            console.log(res_tg);
         } catch (error) {
             console.error("POST request failed:", error);
         }
@@ -55,7 +53,7 @@ const CarForm = memo((props: CarFormProps) => {
             <Input
                 placeholder={"Какой автомобиль?"}
                 className={classNames(styles.input)}
-                type="text"
+                type='text'
                 onChange={onChangeCar}
                 value={car}
                 autoFocus
