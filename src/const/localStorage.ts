@@ -1,5 +1,7 @@
 export const LOCAL_STORAGE_ORDER_KEY = "order-key";
 
-export const TELEGRAM_TOKEN = "bot7612955325:AAGj3znmNsefZxJNEl4PZGcU2xxzJ6vxlzA";
+export type TelegramTokenType = string;
+export const TELEGRAM_TOKEN = "telegram-token";
 
-export const TELEGRAM_CHAT_ID = 235593505;
+export type TelegramChatIdType = number;
+export const TELEGRAM_CHAT_ID = "telegram-chat-id"; //"235593505";

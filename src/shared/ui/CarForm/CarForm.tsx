@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useContext, useState } from "react";
 
 import { classNames } from "../../lib/classNames";
 import { Input } from "../../ui/Input";
@@ -6,6 +6,7 @@ import { Text, TextVariant } from "../../ui/Text";
 import { Button, ButtonTheme } from "../../ui/Button";
 
 import styles from "./CarForm.module.scss";
+import { AppContext } from "../../../theme/ThemeContext";
 
 export interface CarFormProps {
     className?: string;
@@ -14,6 +15,8 @@ export interface CarFormProps {
 
 const CarForm = memo((props: CarFormProps) => {
     const { className, onSuccess } = props;
+
+    const { telegramToken, telegramChatId } = useContext(AppContext);
 
     const [car, setCar] = useState("");
     const [disabled, setDisabled] = useState(false);
@@ -27,19 +30,16 @@ const CarForm = memo((props: CarFormProps) => {
     const onSendClick = useCallback(async () => {
         setDisabled(true);
         try {
-            const tg = await fetch(
-                "https://api.telegram.org/bot7612955325:AAGj3znmNsefZxJNEl4PZGcU2xxzJ6vxlzA/sendMessage",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        chat_id: 235593505,
-                        text: `Need Car: ${car}`,
-                    }),
-                }
-            );
+            const tg = await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    chat_id: telegramChatId, //235593505,
+                    text: `Need Car: ${car}`,
+                }),
+            });
             const res_tg = await tg.json();
             onSuccess();
         } catch (error) {

@@ -1,9 +1,17 @@
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 
 import { AppContext, OrderKey } from "../../theme/ThemeContext";
-import { LOCAL_STORAGE_ORDER_KEY, TELEGRAM_TOKEN } from "../../const/localStorage";
+import {
+    LOCAL_STORAGE_ORDER_KEY,
+    TelegramTokenType,
+    TelegramChatIdType,
+    TELEGRAM_CHAT_ID,
+    TELEGRAM_TOKEN,
+} from "../../const/localStorage";
 
 const defaultKey = (localStorage.getItem(LOCAL_STORAGE_ORDER_KEY) as OrderKey) || "";
+const defaultToken = (localStorage.getItem(TELEGRAM_TOKEN) as TelegramTokenType) || "";
+const defaultChatid = (Number(localStorage.getItem(TELEGRAM_CHAT_ID)) as TelegramChatIdType) || 0;
 
 interface AppProviderProps {
     initialKey?: OrderKey;
@@ -15,11 +23,22 @@ const AppProvider = (props: AppProviderProps) => {
 
     const [isCarModal, setIsCarModal] = useState(false);
     const [orderKey, setOrderKey] = useState(initialKey || defaultKey);
+    const [telegramToken] = useState(defaultToken);
+    const [telegramChatId] = useState(defaultChatid);
+
+    useEffect(() => {
+        if (defaultToken === "") {
+            localStorage.setItem(TELEGRAM_TOKEN, "<SET YOUR THE TELEGRAM BOT TOKEN>");
+        }
+        if (defaultChatid === 0) {
+            localStorage.setItem(TELEGRAM_CHAT_ID, "<SET YOUR THE BOT CHAT_ID>");
+        }
+    }, []);
 
     const waitJoin = async (lastUpdate: number, ordKey: string) => {
         let count = 10;
         const send = async (lastUpdate: number, ordKey: string): Promise<any> => {
-            return fetch(`https://api.telegram.org/${TELEGRAM_TOKEN}/getUpdates`, {
+            return fetch(`https://api.telegram.org/bot${telegramToken}/getUpdates`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -63,8 +82,10 @@ const AppProvider = (props: AppProviderProps) => {
             isCarModal,
             setIsCarModal,
             waitJoin,
+            telegramToken,
+            telegramChatId,
         }),
-        [orderKey, isCarModal]
+        [orderKey, isCarModal, telegramToken, telegramChatId]
     );
 
     return <AppContext.Provider value={defaultProps}>{children}</AppContext.Provider>;

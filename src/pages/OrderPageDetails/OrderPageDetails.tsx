@@ -18,7 +18,7 @@ const OrderPageDetails = (props: OrderPageDetailsProps) => {
     const [username, setUsername] = useState("");
     const [phone, setPhone] = useState("");
     const [disabled, setDisabled] = useState(false);
-    const { waitJoin, setOrderKey } = useContext(AppContext);
+    const { waitJoin, setOrderKey, telegramToken, telegramChatId } = useContext(AppContext);
     const navigate = useNavigate();
 
     // const waitCar = ()
@@ -46,7 +46,7 @@ const OrderPageDetails = (props: OrderPageDetailsProps) => {
         setDisabled(true);
         try {
             const firstUpdate = await fetch(
-                `https://api.telegram.org/${TELEGRAM_TOKEN}/getUpdates`,
+                `https://api.telegram.org/bot${telegramToken}/getUpdates`,
                 {
                     method: "POST",
                     headers: {
@@ -62,13 +62,13 @@ const OrderPageDetails = (props: OrderPageDetailsProps) => {
                 lastUpdate = Math.max(lastUpdate, update.update_id);
             }
 
-            const tg = await fetch(`https://api.telegram.org/${TELEGRAM_TOKEN}/sendMessage`, {
+            const tg = await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
+                    chat_id: telegramChatId,
                     text: `Имя: ${username}\nТелефон: ${phone}`,
                     reply_markup: {
                         inline_keyboard: [[{ text: "Принять заказ", callback_data: `${OrderId}` }]],
