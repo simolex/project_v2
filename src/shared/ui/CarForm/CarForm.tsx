@@ -40,7 +40,6 @@ const CarForm = memo((props: CarFormProps) => {
                     text: `Need Car: ${car}`,
                 }),
             });
-            const res_tg = await tg.json();
             onSuccess();
         } catch (error) {
             console.error("POST request failed:", error);
@@ -49,7 +48,7 @@ const CarForm = memo((props: CarFormProps) => {
 
     return (
         <div className={classNames(styles.carForm, {}, [className])}>
-            <Text title={"Выберете машину"} />
+            <Text title={"Выберите машину"} />
             <Input
                 placeholder={"Какой автомобиль?"}
                 className={classNames(styles.input)}
